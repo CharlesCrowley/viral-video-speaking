@@ -1,0 +1,3 @@
+[submodule "esl-docs"]
+	path = esl-docs
+	url = https://github.com/CharlesCrowley/esl-docs
