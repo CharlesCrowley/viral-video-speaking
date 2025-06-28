@@ -1,0 +1,1 @@
+video description: An older, balding man in a striped shirt and shorts executes a surprising backflip over a blue park bench in an outdoor public space. Prompted by an off-camera "Mhm," he launches off the backrest, lands successfully on the grass, and appears pleased.

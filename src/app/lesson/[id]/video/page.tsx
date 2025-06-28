@@ -133,11 +133,14 @@ export default function VideoPage() {
       setUploading(false)
       setProcessing(true)
 
-      // Process with AI (transcribe + score)
-      await processRecording(attempt.id)
+      // TEMPORARY: Skip AI processing for now
+      // TODO: Re-enable when Edge Functions are deployed
+      // await processRecording(attempt.id)
       
       // Navigate to feedback page
+      setTimeout(() => {
       router.push(`/lesson/${lessonId}/feedback/${attempt.id}`)
+      }, 1000) // Short delay to show processing state
       
     } catch (error) {
       console.error('Error submitting recording:', error)

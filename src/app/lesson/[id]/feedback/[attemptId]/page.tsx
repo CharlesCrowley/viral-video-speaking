@@ -26,17 +26,21 @@ export default function FeedbackPage() {
   const attemptId = params.attemptId as string
 
   useEffect(() => {
+    if (user?.id) {
     fetchData()
-  }, [attemptId, lessonId]) // eslint-disable-line react-hooks/exhaustive-deps
+    }
+  }, [attemptId, lessonId, user?.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchData = async () => {
+    if (!user?.id) return
+    
     try {
       // Fetch attempt with scores
       const { data: attemptData, error: attemptError } = await supabase
         .from('attempts')
         .select('*')
         .eq('id', attemptId)
-        .eq('user_id', user?.id)
+        .eq('user_id', user.id)
         .single()
 
       if (attemptError) throw attemptError
