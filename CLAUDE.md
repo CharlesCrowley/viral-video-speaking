@@ -14,11 +14,12 @@
 1. **Video Lessons**: Teachers create lessons from viral videos with vocabulary and gap-fill exercises
 2. **Speaking Practice**: Students record themselves, get AI transcription and IELTS/CEFR scoring
 3. **Progress Tracking**: Attempts tracked with detailed feedback on fluency, grammar, vocabulary
+4. **NEW: Before/After Flow**: Students attempt twice - before and after learning vocabulary, with celebration UI
 
 ## Database Schema (Current - Supabase)
 - `profiles`: User profiles linked to auth.users
 - `lessons`: Video lessons with exercises (vocab_pairs, gap_fill_sentences as JSONB)
-- `attempts`: Student practice recordings with scores and feedback
+- `attempts`: Student practice recordings with scores and feedback (NOW WITH attempt_number field)
 - Storage buckets: `videos` (public), `recordings` (private)
 
 ## Active Development: Video Harvester
@@ -35,6 +36,8 @@ Currently building an automated content discovery system to find viral English v
 4. **No separate infrastructure**: Everything runs on existing Next.js/Vercel setup
 
 ## Current Tasks
+- ✅ COMPLETED: New lesson flow with before/after comparison
+- ✅ COMPLETED: 25 viral video lessons with exercises ready to use
 - Implementing viral video harvester with Neon database
 - Admin interface for reviewing/approving harvested videos
 - One-click conversion from viral videos to lessons
@@ -67,3 +70,5 @@ npm run type-check  # TypeScript check
 - Use Neon's `@neondatabase/serverless` driver for all database connections
 - Keep the implementation simple - this is a solo founder project with time constraints
 - The VIDEO-HARVESTER.md file contains the detailed technical plan for content automation
+- NEW LESSON FLOW: See docs/LESSON-FLOW-REDESIGN.md for complete implementation details
+- Database has attempt_number field to track first vs second attempts

@@ -30,8 +30,9 @@ export default function VideoPage() {
   const lessonId = params.id as string
 
   useEffect(() => {
-    fetchLesson()
-  }, [lessonId]) // eslint-disable-line react-hooks/exhaustive-deps
+    // Redirect to new flow
+    router.push(`/lesson/${lessonId}`)
+  }, [lessonId, router])
 
   const fetchLesson = async () => {
     try {

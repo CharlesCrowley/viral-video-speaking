@@ -65,7 +65,12 @@ export default function FeedbackPage() {
   }
 
   const handleTryAgain = () => {
-    router.push(`/lesson/${lessonId}/prepare`)
+    // Check if this is first or second attempt
+    if (attempt?.attempt_number === 1) {
+      router.push(`/lesson/${lessonId}/prepare`)
+    } else {
+      router.push(`/lesson/${lessonId}/comparison`)
+    }
   }
 
   const handleShare = async () => {
@@ -144,11 +149,11 @@ export default function FeedbackPage() {
         <div className="flex items-center justify-between mb-8">
           <Button
             variant="ghost"
-            onClick={() => router.push(`/lesson/${lessonId}/video`)}
+            onClick={() => router.push(attempt?.attempt_number === 1 ? `/lesson/${lessonId}` : `/lesson/${lessonId}/attempt/2`)}
             className="flex items-center gap-2"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Video
+            Back
           </Button>
           <div className="text-center">
             <h1 className="text-2xl font-bold">{lesson.title}</h1>
@@ -157,29 +162,57 @@ export default function FeedbackPage() {
           <div className="w-[120px]" /> {/* Spacer for balance */}
         </div>
 
-        {/* Progress Indicator */}
+        {/* Progress Indicator - Dynamic based on attempt number */}
         <div className="flex items-center justify-center mb-8">
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
               <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium">
                 ✓
               </div>
-              <span className="ml-2 text-sm">Prepare</span>
+              <span className="ml-2 text-sm">Watch Video</span>
             </div>
             <div className="w-12 h-0.5 bg-green-500" />
             <div className="flex items-center">
               <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium">
                 ✓
               </div>
-              <span className="ml-2 text-sm">Video & Record</span>
+              <span className="ml-2 text-sm">First Try</span>
             </div>
-            <div className="w-12 h-0.5 bg-green-500" />
-            <div className="flex items-center">
-              <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium">
-                ✓
-              </div>
-              <span className="ml-2 text-sm">Feedback</span>
-            </div>
+            {attempt?.attempt_number === 1 ? (
+              <>
+                <div className="w-12 h-0.5 bg-muted" />
+                <div className="flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-muted text-muted-foreground flex items-center justify-center text-sm font-medium">
+                    3
+                  </div>
+                  <span className="ml-2 text-sm">Learn Vocab</span>
+                </div>
+                <div className="w-12 h-0.5 bg-muted" />
+                <div className="flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-muted text-muted-foreground flex items-center justify-center text-sm font-medium">
+                    4
+                  </div>
+                  <span className="ml-2 text-sm">Second Try</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="w-12 h-0.5 bg-green-500" />
+                <div className="flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium">
+                    ✓
+                  </div>
+                  <span className="ml-2 text-sm">Learn Vocab</span>
+                </div>
+                <div className="w-12 h-0.5 bg-green-500" />
+                <div className="flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium">
+                    ✓
+                  </div>
+                  <span className="ml-2 text-sm">Second Try</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -196,24 +229,26 @@ export default function FeedbackPage() {
           )}
 
           {/* Action Buttons */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className={`grid grid-cols-1 ${attempt?.attempt_number === 2 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-4`}>
             <Button
               variant="outline"
               onClick={handleTryAgain}
               className="flex items-center gap-2"
             >
               <RotateCcw className="h-4 w-4" />
-              Try This Lesson Again
+              {attempt?.attempt_number === 1 ? 'Continue to Vocabulary' : 'View Comparison'}
             </Button>
             
-            <Button
-              variant="outline"
-              onClick={handleShare}
-              className="flex items-center gap-2"
-            >
-              <Share className="h-4 w-4" />
-              Share Your Score
-            </Button>
+            {attempt?.attempt_number === 2 && (
+              <Button
+                variant="outline"
+                onClick={handleShare}
+                className="flex items-center gap-2"
+              >
+                <Share className="h-4 w-4" />
+                Share Your Score
+              </Button>
+            )}
             
             <Button
               onClick={() => router.push('/')}

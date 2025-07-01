@@ -78,6 +78,7 @@ export interface Database {
           score_json: ScoreData | null
           feedback_json: FeedbackData | null
           duration_seconds: number | null
+          attempt_number: number
           created_at: string
         }
         Insert: {
@@ -89,6 +90,7 @@ export interface Database {
           score_json?: ScoreData | null
           feedback_json?: FeedbackData | null
           duration_seconds?: number | null
+          attempt_number?: number
           created_at?: string
         }
         Update: {
@@ -100,6 +102,7 @@ export interface Database {
           score_json?: ScoreData | null
           feedback_json?: FeedbackData | null
           duration_seconds?: number | null
+          attempt_number?: number
           created_at?: string
         }
       }

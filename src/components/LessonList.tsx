@@ -34,7 +34,7 @@ export function LessonList() {
   }
 
   const handleStartLesson = (lessonId: string) => {
-    router.push(`/lesson/${lessonId}/prepare`)
+    router.push(`/lesson/${lessonId}`)
   }
 
   if (loading) {

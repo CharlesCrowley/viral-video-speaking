@@ -36,8 +36,13 @@ CREATE TABLE public.attempts (
   score_json JSONB, -- {ielts: float, cefr: string, fluency: 0-5, vocab: 0-5, grammar: 0-5}
   feedback_json JSONB, -- {mistakes: [{type, excerpt, suggestion}]}
   duration_seconds INTEGER,
+  attempt_number INTEGER DEFAULT 1 CHECK (attempt_number IN (1, 2)),
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Create index for efficient queries
+CREATE INDEX idx_attempts_user_lesson_number 
+ON public.attempts(user_id, lesson_id, attempt_number);
 
 -- Create storage buckets
 INSERT INTO storage.buckets (id, name, public) VALUES 
@@ -66,12 +71,38 @@ CREATE POLICY "Anyone can view published lessons" ON public.lessons
 CREATE POLICY "Teachers can manage their lessons" ON public.lessons
   FOR ALL USING (auth.uid() = created_by);
 
+-- Create function to check attempt sequence
+CREATE OR REPLACE FUNCTION check_attempt_sequence(p_user_id UUID, p_lesson_id UUID, p_attempt_number INTEGER)
+RETURNS BOOLEAN AS $$
+BEGIN
+  -- First attempt is always allowed
+  IF p_attempt_number = 1 THEN
+    RETURN TRUE;
+  END IF;
+  
+  -- Second attempt requires first attempt to exist
+  IF p_attempt_number = 2 THEN
+    RETURN EXISTS (
+      SELECT 1 FROM public.attempts 
+      WHERE user_id = p_user_id 
+      AND lesson_id = p_lesson_id 
+      AND attempt_number = 1
+    );
+  END IF;
+  
+  RETURN FALSE;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Attempts policies
 CREATE POLICY "Users can view their own attempts" ON public.attempts
   FOR SELECT USING (auth.uid() = user_id);
 
 CREATE POLICY "Users can insert their own attempts" ON public.attempts
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+  FOR INSERT WITH CHECK (
+    auth.uid() = user_id 
+    AND check_attempt_sequence(user_id, lesson_id, attempt_number)
+  );
 
 -- Storage policies
 CREATE POLICY "Videos are publicly viewable" ON storage.objects

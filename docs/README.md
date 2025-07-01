@@ -14,6 +14,7 @@ Welcome to the ESL Video Description App documentation! This directory contains 
 
 ### Architecture & Planning
 - [**VIDEO-HARVESTER.md**](./VIDEO-HARVESTER.md) - Video harvesting and content strategy
+- [**LESSON-FLOW-REDESIGN.md**](./LESSON-FLOW-REDESIGN.md) - New lesson flow implementation (July 2025)
 - [**things-to-check.md**](./things-to-check.md) - Development checklist and items to verify
 
 ### Business & Strategy
