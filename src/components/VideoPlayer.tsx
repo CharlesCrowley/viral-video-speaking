@@ -1,9 +1,8 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Play, Volume2, VolumeX } from 'lucide-react'
+import { Play, SkipForward, Timer } from 'lucide-react'
 
 interface VideoPlayerProps {
   videoUrl: string
@@ -11,85 +10,93 @@ interface VideoPlayerProps {
   disabled?: boolean
 }
 
-export function VideoPlayer({ videoUrl, onVideoEnd, disabled = false }: VideoPlayerProps) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [hasPlayed, setHasPlayed] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(false)
-  const [showControls, setShowControls] = useState(true)
+const VIDEO_DURATION_SECONDS = 60;
 
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    const handlePlay = () => setIsPlaying(true)
-    const handlePause = () => setIsPlaying(false)
-    const handleEnded = () => {
-      setIsPlaying(false)
-      setHasPlayed(true)
-      setShowControls(false)
-      onVideoEnd()
+function getYouTubeEmbedUrl(url: string): string | null {
+  let videoId = null;
+  try {
+    const urlObj = new URL(url);
+    if (urlObj.hostname === 'youtu.be') {
+      videoId = urlObj.pathname.slice(1);
+    } else if (urlObj.hostname.includes('youtube.com')) {
+      videoId = urlObj.searchParams.get('v');
     }
-
-    video.addEventListener('play', handlePlay)
-    video.addEventListener('pause', handlePause)
-    video.addEventListener('ended', handleEnded)
-
-    return () => {
-      video.removeEventListener('play', handlePlay)
-      video.removeEventListener('pause', handlePause)
-      video.removeEventListener('ended', handleEnded)
-    }
-  }, [onVideoEnd])
-
-  const handlePlay = async () => {
-    if (!videoRef.current || hasPlayed || disabled) return
-
-    try {
-      await videoRef.current.play()
-      setHasPlayed(true)
-    } catch (error) {
-      console.error('Error playing video:', error)
-    }
+  } catch (e) {
+    return null;
   }
 
-  const toggleMute = () => {
-    if (!videoRef.current) return
-    videoRef.current.muted = !videoRef.current.muted
-    setIsMuted(Boolean(videoRef.current.muted))
+  if (!videoId) return null;
+  
+  return `https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0&controls=0`;
+}
+
+export function VideoPlayer({ videoUrl, onVideoEnd, disabled = false }: VideoPlayerProps) {
+  const [hasPlayed, setHasPlayed] = useState(false)
+  const [countdown, setCountdown] = useState(VIDEO_DURATION_SECONDS);
+  const embedUrl = getYouTubeEmbedUrl(videoUrl);
+
+  useEffect(() => {
+    if (hasPlayed) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            onVideoEnd();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [hasPlayed, onVideoEnd]);
+
+  const handlePlay = () => {
+    if (disabled) return;
+    setHasPlayed(true);
+  }
+  
+  const handleSkip = () => {
+    onVideoEnd();
+  }
+
+  if (!embedUrl) {
+    return <div>Invalid video URL provided.</div>;
   }
 
   return (
     <div className="relative w-full max-w-4xl mx-auto">
       <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
-        <video
-          ref={videoRef}
-          className="w-full h-full object-contain"
-          controls={showControls && hasPlayed}
-          muted={isMuted}
-          playsInline
-          preload="metadata"
-        >
-          <source src={videoUrl} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-
-        {/* Play Overlay */}
-        {!hasPlayed && !disabled && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-            <Button
+        {hasPlayed ? (
+          <>
+            <iframe
+              src={embedUrl}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            ></iframe>
+            <div className="absolute top-2 right-2 bg-black/50 text-white p-2 rounded-md flex items-center gap-2">
+              <Timer className="h-5 w-5" />
+              <span>{countdown}s</span>
+            </div>
+          </>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-black">
+             <Button
               size="lg"
               onClick={handlePlay}
               className="w-20 h-20 rounded-full"
               variant="secondary"
+              disabled={disabled}
             >
               <Play className="h-8 w-8 ml-1" />
             </Button>
           </div>
         )}
 
-        {/* Disabled Overlay */}
-        {disabled && (
+        {disabled && !hasPlayed && (
           <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
             <div className="text-center text-white">
               <div className="text-lg font-semibold mb-2">Video Locked</div>
@@ -97,43 +104,21 @@ export function VideoPlayer({ videoUrl, onVideoEnd, disabled = false }: VideoPla
             </div>
           </div>
         )}
-
-        {/* Status Badge */}
-        <div className="absolute top-4 right-4">
-          {hasPlayed ? (
-            <Badge variant="secondary" className="bg-green-100 text-green-800">
-              Watched
-            </Badge>
-          ) : (
-            <Badge variant="secondary" className="bg-blue-100 text-blue-800">
-              Single Play Only
-            </Badge>
-          )}
-        </div>
-
-        {/* Volume Control */}
-        {hasPlayed && showControls && (
-          <div className="absolute top-4 left-4">
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={toggleMute}
-              className="opacity-80 hover:opacity-100"
-            >
-              {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-            </Button>
-          </div>
-        )}
       </div>
 
-      {/* Video Information */}
-      <div className="mt-4 text-center">
+      <div className="mt-4 flex justify-center items-center gap-4">
         <p className="text-sm text-muted-foreground">
           {hasPlayed 
-            ? "You can now record your description of what you saw in the video" 
-            : "Click play to watch the video (you can only watch it once)"
+            ? "Recording will start when the timer ends." 
+            : "Click play to watch the video."
           }
         </p>
+        {hasPlayed && (
+          <Button onClick={handleSkip} variant="outline" size="sm">
+            <SkipForward className="h-4 w-4 mr-2" />
+            Skip
+          </Button>
+        )}
       </div>
     </div>
   )

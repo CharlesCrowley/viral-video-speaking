@@ -39,13 +39,12 @@ export default function Home() {
               Get Started
             </Button>
             <div className="text-sm text-muted-foreground">
-              Already have an account?{' '}
               <Button 
                 variant="link" 
                 className="p-0 h-auto"
-                onClick={() => router.push('/login')}
+                onClick={() => router.push('/signup')}
               >
-                Sign in
+                Sign up to get started
               </Button>
             </div>
           </CardContent>

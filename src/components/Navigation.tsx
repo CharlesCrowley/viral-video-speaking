@@ -35,19 +35,6 @@ export function Navigation() {
             </>
           ) : (
             <>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => router.push('/login')}
-              >
-                Sign In
-              </Button>
-              <Button 
-                size="sm"
-                onClick={() => router.push('/signup')}
-              >
-                Sign Up
-              </Button>
             </>
           )}
         </div>

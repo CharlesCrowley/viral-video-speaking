@@ -9,8 +9,46 @@ import { MistakeList } from '@/components/MistakeList'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { createClient } from '@/lib/supabase-browser'
 import { useAuth } from '@/contexts/AuthContext'
-import { Attempt, Lesson } from '@/types/database'
-import { ArrowLeft, Home, RotateCcw, Share } from 'lucide-react'
+import { Attempt, Lesson, VocabPair } from '@/types/database'
+import { ArrowLeft, Home, RotateCcw, CheckCircle, Circle } from 'lucide-react'
+
+function VocabularyChecklist({ vocab, transcript }: { vocab: VocabPair[], transcript: string }) {
+  const getUsedWords = () => {
+    if (!transcript) return [];
+    const lowerCaseTranscript = transcript.toLowerCase();
+    return vocab.filter(pair => lowerCaseTranscript.includes(pair.term.toLowerCase()));
+  };
+
+  const usedWords = getUsedWords();
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Vocabulary Checklist</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm text-muted-foreground mb-4">
+          Here are the vocabulary words from the "Prepare" phase. See how many you used!
+        </p>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {vocab.map(pair => {
+            const isUsed = usedWords.some(usedPair => usedPair.term === pair.term);
+            return (
+              <div key={pair.term} className="flex items-center gap-2">
+                {isUsed ? (
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                ) : (
+                  <Circle className="h-5 w-5 text-muted-foreground" />
+                )}
+                <span className={isUsed ? 'font-semibold' : ''}>{pair.term}</span>
+              </div>
+            );
+          })}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function FeedbackPage() {
   const [attempt, setAttempt] = useState<Attempt | null>(null)
@@ -27,7 +65,7 @@ export default function FeedbackPage() {
 
   useEffect(() => {
     if (user?.id) {
-    fetchData()
+      fetchData()
     }
   }, [attemptId, lessonId, user?.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -35,7 +73,6 @@ export default function FeedbackPage() {
     if (!user?.id) return
     
     try {
-      // Fetch attempt with scores
       const { data: attemptData, error: attemptError } = await supabase
         .from('attempts')
         .select('*')
@@ -45,7 +82,6 @@ export default function FeedbackPage() {
 
       if (attemptError) throw attemptError
 
-      // Fetch lesson details
       const { data: lessonData, error: lessonError } = await supabase
         .from('lessons')
         .select('*')
@@ -65,34 +101,7 @@ export default function FeedbackPage() {
   }
 
   const handleTryAgain = () => {
-    // Check if this is first or second attempt
-    if (attempt?.attempt_number === 1) {
-      router.push(`/lesson/${lessonId}/prepare`)
-    } else {
-      router.push(`/lesson/${lessonId}/comparison`)
-    }
-  }
-
-  const handleShare = async () => {
-    if (!attempt?.score_json) return
-
-    try {
-      const shareData = {
-        title: 'My ESL Speaking Score',
-        text: `I scored ${attempt.score_json.ielts}/9.0 on my English speaking practice!`,
-        url: window.location.href,
-      }
-
-      if (navigator.share) {
-        await navigator.share(shareData)
-      } else {
-        // Fallback to copying URL
-        await navigator.clipboard.writeText(window.location.href)
-        alert('Link copied to clipboard!')
-      }
-    } catch (error) {
-      console.error('Error sharing:', error)
-    }
+    router.push(`/lesson/${lessonId}/attempt/2`);
   }
 
   if (loading) {
@@ -144,158 +153,50 @@ export default function FeedbackPage() {
 
   return (
     <ProtectedRoute>
-      <main className="container mx-auto py-8 px-6 max-w-6xl">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => router.push(attempt?.attempt_number === 1 ? `/lesson/${lessonId}` : `/lesson/${lessonId}/attempt/2`)}
-            className="flex items-center gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back
-          </Button>
-          <div className="text-center">
-            <h1 className="text-2xl font-bold">{lesson.title}</h1>
-            <p className="text-muted-foreground">Your Feedback</p>
-          </div>
-          <div className="w-[120px]" /> {/* Spacer for balance */}
-        </div>
-
-        {/* Progress Indicator - Dynamic based on attempt number */}
-        <div className="flex items-center justify-center mb-8">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center">
-              <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium">
-                ✓
-              </div>
-              <span className="ml-2 text-sm">Watch Video</span>
-            </div>
-            <div className="w-12 h-0.5 bg-green-500" />
-            <div className="flex items-center">
-              <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium">
-                ✓
-              </div>
-              <span className="ml-2 text-sm">First Try</span>
-            </div>
-            {attempt?.attempt_number === 1 ? (
-              <>
-                <div className="w-12 h-0.5 bg-muted" />
-                <div className="flex items-center">
-                  <div className="w-8 h-8 rounded-full bg-muted text-muted-foreground flex items-center justify-center text-sm font-medium">
-                    3
-                  </div>
-                  <span className="ml-2 text-sm">Learn Vocab</span>
-                </div>
-                <div className="w-12 h-0.5 bg-muted" />
-                <div className="flex items-center">
-                  <div className="w-8 h-8 rounded-full bg-muted text-muted-foreground flex items-center justify-center text-sm font-medium">
-                    4
-                  </div>
-                  <span className="ml-2 text-sm">Second Try</span>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="w-12 h-0.5 bg-green-500" />
-                <div className="flex items-center">
-                  <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium">
-                    ✓
-                  </div>
-                  <span className="ml-2 text-sm">Learn Vocab</span>
-                </div>
-                <div className="w-12 h-0.5 bg-green-500" />
-                <div className="flex items-center">
-                  <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium">
-                    ✓
-                  </div>
-                  <span className="ml-2 text-sm">Second Try</span>
-                </div>
-              </>
-            )}
-          </div>
+      <main className="container mx-auto py-8 px-6 max-w-4xl">
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold">{lesson.title} - Attempt {attempt.attempt_number}</h1>
+          <p className="text-muted-foreground">Your Feedback</p>
         </div>
 
         <div className="space-y-8">
-          {/* Score Card */}
           <ScoreCard 
             score={attempt.score_json} 
             transcript={attempt.transcript || undefined}
           />
 
-          {/* Mistakes List */}
           {attempt.feedback_json && (
             <MistakeList mistakes={attempt.feedback_json.mistakes} />
           )}
 
-          {/* Action Buttons */}
-          <div className={`grid grid-cols-1 ${attempt?.attempt_number === 2 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-4`}>
-            <Button
-              variant="outline"
-              onClick={handleTryAgain}
-              className="flex items-center gap-2"
-            >
-              <RotateCcw className="h-4 w-4" />
-              {attempt?.attempt_number === 1 ? 'Continue to Vocabulary' : 'View Comparison'}
-            </Button>
-            
-            {attempt?.attempt_number === 2 && (
+          {lesson.vocab_pairs && (
+            <VocabularyChecklist 
+              vocab={lesson.vocab_pairs}
+              transcript={attempt.transcript || ''}
+            />
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {attempt.attempt_number === 1 && (
               <Button
-                variant="outline"
-                onClick={handleShare}
+                size="lg"
+                onClick={handleTryAgain}
                 className="flex items-center gap-2"
               >
-                <Share className="h-4 w-4" />
-                Share Your Score
+                <RotateCcw className="h-4 w-4" />
+                Try Again
               </Button>
             )}
-            
             <Button
+              size="lg"
+              variant="outline"
               onClick={() => router.push('/')}
               className="flex items-center gap-2"
             >
               <Home className="h-4 w-4" />
-              Choose Another Lesson
+              Back to Lessons
             </Button>
           </div>
-
-          {/* Performance Summary */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Summary</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-primary">
-                    {attempt.score_json.ielts.toFixed(1)}
-                  </div>
-                  <div className="text-sm text-muted-foreground">IELTS Band</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-blue-600">
-                    {attempt.score_json.cefr}
-                  </div>
-                  <div className="text-sm text-muted-foreground">CEFR Level</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-green-600">
-                    {attempt.duration_seconds ? Math.floor(attempt.duration_seconds / 60) : 0}:
-                    {attempt.duration_seconds ? (attempt.duration_seconds % 60).toString().padStart(2, '0') : '00'}
-                  </div>
-                  <div className="text-sm text-muted-foreground">Duration</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-orange-600">
-                    {attempt.feedback_json?.mistakes?.length || 0}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Area{(attempt.feedback_json?.mistakes?.length || 0) !== 1 ? 's' : ''} to improve
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </main>
     </ProtectedRoute>

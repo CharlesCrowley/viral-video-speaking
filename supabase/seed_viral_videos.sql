@@ -8,7 +8,7 @@ VALUES
   'Dramatic Chipmunk',
   'A prairie dog dramatically turns to face the camera with intense music',
   'https://www.youtube.com/watch?v=mfhBM_Yay6w',
-  'https://img.youtube.com/vi/mfhBM_Yay6w/maxresdefault.jpg',
+  'https://img.youtube.com/vi/mfhBM_Yay6w/mqdefault.jpg',
   'beginner',
   '[
     {"term": "dramatic", "definition": "showing sudden strong emotion or excitement"},
@@ -31,7 +31,7 @@ VALUES
   'It''s Wednesday My Dudes',
   'A man in a Spider-Man costume announces Wednesday and screams',
   'https://www.youtube.com/watch?v=du-TY1GUFGk',
-  'https://img.youtube.com/vi/du-TY1GUFGk/maxresdefault.jpg',
+  'https://img.youtube.com/vi/du-TY1GUFGk/mqdefault.jpg',
   'beginner',
   '[
     {"term": "announce", "definition": "to say something officially or publicly"},
@@ -54,7 +54,7 @@ VALUES
   'Surprised Pikachu',
   'Pikachu shows a shocked expression when Butterfree evolves',
   'https://www.youtube.com/shorts/Icbk_6iIL0o',
-  'https://img.youtube.com/vi/Icbk_6iIL0o/maxresdefault.jpg',
+  'https://img.youtube.com/vi/Icbk_6iIL0o/mqdefault.jpg',
   'beginner',
   '[
     {"term": "shocked", "definition": "very surprised and upset"},
@@ -77,7 +77,7 @@ VALUES
   'Blinking White Guy',
   'Drew Scanlon blinks repeatedly while processing what he heard',
   'https://www.youtube.com/watch?v=KfDw0cgbaWU',
-  'https://img.youtube.com/vi/KfDw0cgbaWU/maxresdefault.jpg',
+  'https://img.youtube.com/vi/KfDw0cgbaWU/mqdefault.jpg',
   'intermediate',
   '[
     {"term": "blink", "definition": "to close and open your eyes quickly"},
@@ -100,7 +100,7 @@ VALUES
   'Look at All Those Chickens',
   'A little girl points at geese and calls them chickens',
   'https://www.youtube.com/shorts/NsLKQTh-Bqo',
-  'https://img.youtube.com/vi/NsLKQTh-Bqo/maxresdefault.jpg',
+  'https://img.youtube.com/vi/NsLKQTh-Bqo/mqdefault.jpg',
   'beginner',
   '[
     {"term": "point at", "definition": "to show something with your finger"},
@@ -123,7 +123,7 @@ VALUES
   'Road Work Ahead',
   'Drew Gooden makes a pun about a road work sign while driving',
   'https://www.youtube.com/watch?v=6AYv6rV3NXE',
-  'https://img.youtube.com/vi/6AYv6rV3NXE/maxresdefault.jpg',
+  'https://img.youtube.com/vi/6AYv6rV3NXE/mqdefault.jpg',
   'intermediate',
   '[
     {"term": "pun", "definition": "a joke using words with double meanings"},
@@ -146,7 +146,7 @@ VALUES
   'Hurricane Tortilla',
   'A student misreads Hurricane Katrina as Hurricane Tortilla',
   'https://www.youtube.com/shorts/BdnXx5yMy3M',
-  'https://img.youtube.com/vi/BdnXx5yMy3M/maxresdefault.jpg',
+  'https://img.youtube.com/vi/BdnXx5yMy3M/mqdefault.jpg',
   'beginner',
   '[
     {"term": "misread", "definition": "to read something incorrectly"},
@@ -169,7 +169,7 @@ VALUES
   'Two Bros Chillin'' in a Hot Tub',
   'Two guys sit in a hot tub five feet apart',
   'https://www.youtube.com/shorts/EwAajOtfNT8',
-  'https://img.youtube.com/vi/EwAajOtfNT8/maxresdefault.jpg',
+  'https://img.youtube.com/vi/EwAajOtfNT8/mqdefault.jpg',
   'intermediate',
   '[
     {"term": "chillin''", "definition": "relaxing (informal)"},
@@ -192,7 +192,7 @@ VALUES
   'Free Shavacado',
   'A person mispronounces Fresh Avocado as Free Shavacado',
   'https://www.youtube.com/shorts/N-HTRP8fz0Y',
-  'https://img.youtube.com/vi/N-HTRP8fz0Y/maxresdefault.jpg',
+  'https://img.youtube.com/vi/N-HTRP8fz0Y/mqdefault.jpg',
   'beginner',
   '[
     {"term": "mispronounce", "definition": "to say a word incorrectly"},
@@ -215,7 +215,7 @@ VALUES
   'He Needs Some Milk',
   'Bystanders react to someone falling by shouting about milk',
   'https://www.youtube.com/watch?v=HRA1HyR1k8E',
-  'https://img.youtube.com/vi/HRA1HyR1k8E/maxresdefault.jpg',
+  'https://img.youtube.com/vi/HRA1HyR1k8E/mqdefault.jpg',
   'intermediate',
   '[
     {"term": "bystander", "definition": "a person who is near but not involved"},
@@ -238,7 +238,7 @@ VALUES
   'Deez Nuts',
   'WelvenDaGreat makes a prank call with a ''deez nuts'' punchline',
   'https://www.youtube.com/shorts/HHFFdy2NSdE',
-  'https://img.youtube.com/vi/HHFFdy2NSdE/maxresdefault.jpg',
+  'https://img.youtube.com/vi/HHFFdy2NSdE/mqdefault.jpg',
   'intermediate',
   '[
     {"term": "prank call", "definition": "a phone call made to trick someone"},
@@ -261,7 +261,7 @@ VALUES
   'Yeet!',
   'A person throws an empty can while yelling YEET',
   'https://www.youtube.com/watch?v=2Bjy5YQ5xPc',
-  'https://img.youtube.com/vi/2Bjy5YQ5xPc/maxresdefault.jpg',
+  'https://img.youtube.com/vi/2Bjy5YQ5xPc/mqdefault.jpg',
   'beginner',
   '[
     {"term": "yeet", "definition": "to throw something with force (slang)"},
@@ -284,7 +284,7 @@ VALUES
   'You Made Me Drop My Croissant',
   'Someone gets startled and almost drops their croissant',
   'https://www.youtube.com/watch?v=ScSp4mGIrdE',
-  'https://img.youtube.com/vi/ScSp4mGIrdE/maxresdefault.jpg',
+  'https://img.youtube.com/vi/ScSp4mGIrdE/mqdefault.jpg',
   'beginner',
   '[
     {"term": "startle", "definition": "to surprise and frighten someone"},
@@ -307,7 +307,7 @@ VALUES
   'A Potato Flew Around My Room',
   'A fan blows a potato around while music plays',
   'https://www.youtube.com/shorts/zLTZPK8HhFI',
-  'https://img.youtube.com/vi/zLTZPK8HhFI/maxresdefault.jpg',
+  'https://img.youtube.com/vi/zLTZPK8HhFI/mqdefault.jpg',
   'intermediate',
   '[
     {"term": "flew", "definition": "moved through the air (past of fly)"},
@@ -330,7 +330,7 @@ VALUES
   'Oh My God, They Were Roommates',
   'Two people gossip and one gasps about roommates',
   'https://www.youtube.com/watch?v=FTdtnwTfUJQ',
-  'https://img.youtube.com/vi/FTdtnwTfUJQ/maxresdefault.jpg',
+  'https://img.youtube.com/vi/FTdtnwTfUJQ/mqdefault.jpg',
   'intermediate',
   '[
     {"term": "gossip", "definition": "to talk about other people''s private lives"},
@@ -353,7 +353,7 @@ VALUES
   'Is That a Weed?',
   'A boy holds a crayon while a friend dials 911 on a microwave',
   'https://www.youtube.com/shorts/g6cIYDvFS-U',
-  'https://img.youtube.com/vi/g6cIYDvFS-U/maxresdefault.jpg',
+  'https://img.youtube.com/vi/g6cIYDvFS-U/mqdefault.jpg',
   'intermediate',
   '[
     {"term": "brandish", "definition": "to wave something in a threatening way"},
@@ -376,7 +376,7 @@ VALUES
   'Why You Always Lyin''',
   'Nicholas Fraser sings about someone who always lies',
   'https://www.youtube.com/shorts/Q_dISj7a4Us',
-  'https://img.youtube.com/vi/Q_dISj7a4Us/maxresdefault.jpg',
+  'https://img.youtube.com/vi/Q_dISj7a4Us/mqdefault.jpg',
   'intermediate',
   '[
     {"term": "lyin''", "definition": "lying; not telling the truth (informal)"},
@@ -399,7 +399,7 @@ VALUES
   'What Are Those?!',
   'Someone points at shoes and loudly asks what they are',
   'https://www.youtube.com/watch?v=MFTBu5x3Z1I',
-  'https://img.youtube.com/vi/MFTBu5x3Z1I/maxresdefault.jpg',
+  'https://img.youtube.com/vi/MFTBu5x3Z1I/mqdefault.jpg',
   'beginner',
   '[
     {"term": "point at", "definition": "to show something with your finger"},
@@ -422,7 +422,7 @@ VALUES
   'Kazoo Kid',
   'A cheerful child exclaims WOW while playing kazoo',
   'https://www.youtube.com/watch?v=L2quonm59Kc',
-  'https://img.youtube.com/vi/L2quonm59Kc/maxresdefault.jpg',
+  'https://img.youtube.com/vi/L2quonm59Kc/mqdefault.jpg',
   'beginner',
   '[
     {"term": "kazoo", "definition": "a simple musical instrument you hum into"},
@@ -445,7 +445,7 @@ VALUES
   'Hehe Boi',
   'A cartoon character makes a mischievous laugh',
   'https://www.youtube.com/watch?v=HgFMr076nNQ',
-  'https://img.youtube.com/vi/HgFMr076nNQ/maxresdefault.jpg',
+  'https://img.youtube.com/vi/HgFMr076nNQ/mqdefault.jpg',
   'beginner',
   '[
     {"term": "leer", "definition": "to look at someone in an unpleasant way"},
@@ -468,7 +468,7 @@ VALUES
   'Shooting Stars',
   'A subject drifts through psychedelic space to music',
   'https://www.youtube.com/watch?v=AJpL24_YDUc',
-  'https://img.youtube.com/vi/AJpL24_YDUc/maxresdefault.jpg',
+  'https://img.youtube.com/vi/AJpL24_YDUc/mqdefault.jpg',
   'advanced',
   '[
     {"term": "drift", "definition": "to move slowly without control"},
@@ -491,7 +491,7 @@ VALUES
   'PPAP - Pen Pineapple Apple Pen',
   'Pikotaro combines a pen, pineapple, and apple in a catchy song',
   'https://www.youtube.com/watch?v=0E00Zuayv9Q',
-  'https://img.youtube.com/vi/0E00Zuayv9Q/maxresdefault.jpg',
+  'https://img.youtube.com/vi/0E00Zuayv9Q/mqdefault.jpg',
   'intermediate',
   '[
     {"term": "combine", "definition": "to put two or more things together"},
@@ -514,7 +514,7 @@ VALUES
   'It''s an Avocado... Thanks!',
   'A child politely thanks someone for an avocado Christmas gift',
   'https://www.youtube.com/shorts/k-cavEKkirc',
-  'https://img.youtube.com/vi/k-cavEKkirc/maxresdefault.jpg',
+  'https://img.youtube.com/vi/k-cavEKkirc/mqdefault.jpg',
   'beginner',
   '[
     {"term": "unwrap", "definition": "to remove paper from a gift"},
@@ -537,7 +537,7 @@ VALUES
   'What''s 9 + 10? 21!',
   'A child confidently gives the wrong answer to a math question',
   'https://www.youtube.com/watch?v=imqn0acHArw',
-  'https://img.youtube.com/vi/imqn0acHArw/maxresdefault.jpg',
+  'https://img.youtube.com/vi/imqn0acHArw/mqdefault.jpg',
   'beginner',
   '[
     {"term": "math", "definition": "the study of numbers"},
@@ -560,7 +560,7 @@ VALUES
   'Never Gonna Give You Up (Rickroll)',
   'Rick Astley''s famous song used to trick people online',
   'https://www.youtube.com/watch?v=QNXvE1BZu8g',
-  'https://img.youtube.com/vi/QNXvE1BZu8g/maxresdefault.jpg',
+  'https://img.youtube.com/vi/QNXvE1BZu8g/mqdefault.jpg',
   'intermediate',
   '[
     {"term": "rickroll", "definition": "to trick someone into watching this video"},
@@ -573,6 +573,29 @@ VALUES
     {"text": "People use this video to [BLANK] others.", "blanks": ["rickroll"]},
     {"text": "The song has become [BLANK] on the internet.", "blanks": ["iconic"]},
     {"text": "Links often [BLANK] people to this video.", "blanks": ["mislead"]}
+  ]'::jsonb,
+  true,
+  null
+),
+
+-- 26. 90s Rave Kid
+(
+  '90s Rave Kid',
+  'Today, you will practice describing a scene using descriptive adjectives and action verbs.||A young boy dances with incredible confidence and energy at a 90s rave, capturing the spirit of the era.',
+  'https://www.youtube.com/watch?v=_yRJsecDjjc',
+  'https://i.ytimg.com/vi/_yRJsecDjjc/mqdefault.jpg',
+  'intermediate',
+  '[
+    {"term": "Rhythm", "definition": "A regular, repeated pattern of movement or sound."},
+    {"term": "Confident", "definition": "Feeling or showing certainty about yourself."},
+    {"term": "Enthusiasm", "definition": "Intense and eager enjoyment or interest."},
+    {"term": "Unbothered", "definition": "Not concerned or worried by what is happening."},
+    {"term": "Fist-pumping", "definition": "Moving your closed hand up and down energetically, usually to music."}
+  ]'::jsonb,
+  '[
+    {"text": "The boy dances to the [BLANK] of the music.", "blanks": ["Rhythm"]},
+    {"text": "He is very [BLANK] in his movements.", "blanks": ["Confident"]},
+    {"text": "You can see the [BLANK] on his face as he dances.", "blanks": ["Enthusiasm"]}
   ]'::jsonb,
   true,
   null

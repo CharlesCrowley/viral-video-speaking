@@ -12,7 +12,7 @@ export default async function ComparisonPage({
   const { data: { user } } = await supabase.auth.getUser();
   
   if (!user) {
-    redirect('/auth/login');
+    redirect('/');
   }
 
   // Fetch lesson

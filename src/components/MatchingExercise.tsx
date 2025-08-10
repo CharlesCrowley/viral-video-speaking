@@ -42,9 +42,12 @@ export function MatchingExercise({ vocabPairs, onComplete }: MatchingExercisePro
     })
   )
 
-  // Shuffle arrays for random order
-  const shuffledTerms = [...vocabPairs].sort(() => Math.random() - 0.5)
-  const shuffledDefinitions = [...vocabPairs].sort(() => Math.random() - 0.5)
+  const [shuffledTerms] = useState(() =>
+    [...vocabPairs].sort(() => Math.random() - 0.5)
+  );
+  const [shuffledDefinitions] = useState(() =>
+    [...vocabPairs].sort(() => Math.random() - 0.5)
+  );
 
   useEffect(() => {
     if (matches.length === vocabPairs.length) {

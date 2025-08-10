@@ -20,12 +20,20 @@ export function LessonList() {
 
   const fetchLessons = async () => {
     try {
-      const { data, error } = await supabase.rpc('get_lessons_with_progress', {
-        p_user_id: user?.id || null
-      })
+      const { data, error } = await supabase
+        .from('lessons')
+        .select('*')
+        .eq('published', true)
       
       if (error) throw error
-      setLessons(data || [])
+      
+      const lessonsWithProgress = data.map(lesson => ({
+        ...lesson,
+        is_completed: false,
+        is_started: false,
+        last_attempt_number: null,
+      }))
+      setLessons(lessonsWithProgress || [])
     } catch (error) {
       console.error('Error fetching lessons:', error)
     } finally {
